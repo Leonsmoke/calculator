@@ -1,4 +1,6 @@
 import Calculator.CalculatorBuilder;
+import Operations.OperationInterface;
+import Calculator.Operations;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -29,7 +31,7 @@ class Application {
 
     }
     private static Object getNumber(){
-        Object num=null;
+        Object num;
         System.out.println("Enter value");
         try{
             if(scanner.hasNextInt()){
@@ -38,7 +40,7 @@ class Application {
                 num = scanner.nextFloat();
             }
         } catch (InputMismatchException e){
-            System.out.println("Error. Try again");
+            System.out.println(e+". Input error, incorrect format. Try again");
             scanner.next();
             num = getNumber();
         }
@@ -46,13 +48,20 @@ class Application {
     }
 
     private static char getOperationChar(){
-        char operation;
+        char operation=' ';
         System.out.println("Enter operator");
-        if(scanner.hasNext()){
-            operation = scanner.next().charAt(0);
-        } else {
-            System.out.println("Error. Try again");
-            scanner.next();//рекурсия
+        try{
+            if(scanner.hasNext()){
+                operation = scanner.next().charAt(0);
+            }
+        } catch (InputMismatchException e){
+            System.out.println("Input error, incorrect format. Try again");
+            scanner.next();
+            operation = getOperationChar();
+        }
+        if (checkOperator(operation)==null){
+            System.out.println("Error, wrong operator. Try again");
+            scanner.next();
             operation = getOperationChar();
         }
         return operation;
@@ -62,4 +71,7 @@ class Application {
         return scanner.next().charAt(0)=='Y';
     }
 
+    private static OperationInterface checkOperator(char operator){
+        return Operations.parseOperation(operator);
+    }
 }
