@@ -2,7 +2,7 @@ import Calculator.CalculatorBuilder;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class Programm {
+class Application {
 
     private static Scanner scanner = new Scanner(System.in);
 
