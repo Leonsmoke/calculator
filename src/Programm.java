@@ -1,5 +1,4 @@
-import Calculator.Calculator;
-import Calculator.FloatCalculator;
+import Calculator.CalculatorBuilder;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,20 +6,16 @@ class Programm {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    private float firstValue,secondValue;
+    private Object firstValue,secondValue;
     private char operator;
 
     void run(){
         while (true){
             try {
-                System.out.println("Enter first value");
                 firstValue=getNumber();
-                System.out.println("Enter second value");
-                secondValue=getNumber();
-                System.out.println("Enter operator");
                 operator=getOperationChar();
-                Calculator calculator = new FloatCalculator(firstValue,secondValue,operator);
-                System.out.println(calculator.execute());
+                secondValue=getNumber();
+                CalculatorBuilder calculator = new CalculatorBuilder<>(firstValue,secondValue,operator);
                 System.out.println("Enter Y for exit, anykey for continue");
                 if (exit()) break;
             } catch (InputMismatchException e){
@@ -33,11 +28,16 @@ class Programm {
 
 
     }
-    private static float getNumber(){
-        float num;
-        if(scanner.hasNextFloat()){
-            num = scanner.nextFloat();
-        } else {
+    private static Object getNumber(){
+        Object num=null;
+        System.out.println("Enter value");
+        try{
+            if(scanner.hasNextInt()){
+                num = scanner.nextInt();
+            } else {
+                num = scanner.nextFloat();
+            }
+        } catch (InputMismatchException e){
             System.out.println("Error. Try again");
             scanner.next();
             num = getNumber();
@@ -47,6 +47,7 @@ class Programm {
 
     private static char getOperationChar(){
         char operation;
+        System.out.println("Enter operator");
         if(scanner.hasNext()){
             operation = scanner.next().charAt(0);
         } else {
@@ -56,7 +57,7 @@ class Programm {
         }
         return operation;
     }
-    
+
     private static boolean exit(){
         return scanner.next().charAt(0)=='Y';
     }

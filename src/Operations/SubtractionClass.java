@@ -1,6 +1,7 @@
 package Operations;
 
 public class SubtractionClass implements OperationInterface {
+
     @Override
     public int executeOperation(int firstValue, int secondValue) {
         return firstValue-secondValue;

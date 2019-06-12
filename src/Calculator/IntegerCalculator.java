@@ -1,12 +1,11 @@
 package Calculator;
 
-public class FloatCalculator extends Calculator {
+public class IntegerCalculator extends Calculator {
+    private int firstValue;
 
-    private float firstValue;
+    private int secondValue;
 
-    private float secondValue;
-
-    public FloatCalculator(float firstValue, float secondValue, char operatorsChar){
+    public IntegerCalculator(int firstValue, int secondValue, char operatorsChar){
         this.firstValue=firstValue;
         this.secondValue=secondValue;
         this.operation=Operations.parseOperation(operatorsChar);
@@ -16,5 +15,4 @@ public class FloatCalculator extends Calculator {
     public Object execute(){
         return operation.executeOperation(firstValue,secondValue);
     }
-
 }

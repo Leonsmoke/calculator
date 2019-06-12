@@ -1,6 +1,7 @@
 package Operations;
 
-public class AdditionClass implements OperationInterface {
+public class AdditionClass implements OperationInterface{
+
 
     @Override
     public int executeOperation(int firstValue, int secondValue) {
